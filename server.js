@@ -12,7 +12,7 @@ const app = express();
 
 //DB
 mongoose
-  .connect(MONGO_URI, {
+  .connect(MONGO_URI || "mongodb://localhost:27017/myMernDB", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
