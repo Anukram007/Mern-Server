@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node -r esm server.js",
-    "heroku-postbuild": "node -r esm server.js"
+    "start": "node -r esm server.js"
   },
   "keywords": [],
   "author": "",
