@@ -1,16 +1,17 @@
 import express from "express";
-// import formidable from "express-formidable";
+import formidable from "express-formidable";
 
 const router = express.Router();
-const multer = require("multer");
-const path = require("path");
+//Multer Image Upload
+// const multer = require("multer");
+// const path = require("path");
 
 //middleware
 import { requireSignin, canEditDeletePost } from "../middlewares";
 //controllers
 import {
   createPost,
-  //uploadImage,
+  uploadImage,
   // postsByUser,
   editPost,
   updatePost,
@@ -39,13 +40,13 @@ router.delete(
   deletePost
 );
 
-//Image upload using cloudinary
-// router.post(
-//   "/upload-image",
-//   requireSignin,
-//   formidable({ maxFileSize: 5 * 1024 * 1024 }),
-//   uploadImage
-// );
+// Image upload using cloudinary
+router.post(
+  "/upload-image",
+  requireSignin,
+  formidable({ maxFileSize: 5 * 1024 * 1024 }),
+  uploadImage
+);
 
 router.get("/news-feed/:page", requireSignin, newsFeed);
 router.put("/like-post", requireSignin, likePost);
@@ -55,29 +56,29 @@ router.put("/remove-comment", requireSignin, removeComment);
 router.get("/post-count", postCount)
 
 //Image upload using multer
-const storage = multer.diskStorage({
-  destination: "./public/uploads/",
-  filename: function (req, file, cb) {
-    cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: "./public/uploads/",
+//   filename: function (req, file, cb) {
+//     cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+//   },
+// });
 
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1000000 },
-});
+// const upload = multer({
+//   storage: storage,
+//   limits: { fileSize: 1000000 },
+// });
 
-router.post(
-  "/upload-image",
-  requireSignin,
-  upload.single("image"),
-  (req, res) => {
-    try {
-      res.json({ success: "Image uploaded successfully" });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
+// router.post(
+//   "/upload-image",
+//   requireSignin,
+//   upload.single("image"),
+//   (req, res) => {
+//     try {
+//       res.json({ success: "Image uploaded successfully" });
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
+// );
 
 module.exports = router;
