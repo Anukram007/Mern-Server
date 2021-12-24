@@ -26,4 +26,10 @@ app.use(urlencoded({ extended: true }));
 
 readdirSync('./routes').map((r) => app.use('/api', require(`./routes/${r}`)));
 
-app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));
+app.use(express.static(path.join(__dirname, "/<front end app folder name>/build")));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/<front end app folder name>/build', 'index.html'));
+});
+
+app.listen(PORT || 8000, () => console.log(`server running on PORT ${PORT}`));
