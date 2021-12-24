@@ -10,13 +10,6 @@ const { MONGO_URI, PORT } = process.env;
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res
-    .status(200)
-    .send('Hello server is running')
-    .end();
-});
-
 //DB
 mongoose
   .connect(MONGO_URI, {

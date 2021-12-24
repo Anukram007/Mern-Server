@@ -1,1 +1,1 @@
-web: node -r esm server.js
+web: npm start
